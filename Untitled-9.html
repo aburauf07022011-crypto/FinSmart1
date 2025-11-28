@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinSmart - Управляй Финансами Разумно</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #10b981;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 180px 0 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15), transparent);
+            top: -200px;
+            right: -200px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 18px 45px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, #10b981, #059669);
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .problem-section {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #0f172a;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #64748b;
+        }
+
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            border-color: #10b981;
+        }
+
+        .problem-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .tracker-section {
+            padding: 100px 0;
+        }
+
+        .tracker {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .tracker h3 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #0f172a;
+        }
+
+        .expense-input {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr auto;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .expense-input input,
+        .expense-input select {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #f8fafc;
+        }
+
+        .expense-input button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .expense-list {
+            margin-top: 30px;
+        }
+
+        .expense-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 15px;
+            margin-bottom: 12px;
+        }
+
+        .expense-item-delete {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .total {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f0fdf4;
+            border-radius: 20px;
+        }
+
+        .budget-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        }
+
+        .budget-rules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .rule-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+        }
+
+        .rule-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .rule-percentage {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .savings-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .calc-input {
+            margin-bottom: 25px;
+        }
+
+        .calc-input label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 1.1rem;
+        }
+
+        .calc-input input {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: #f8fafc;
+        }
+
+        .calc-input input:focus {
+            outline: none;
+            border-color: #10b981;
+            background: white;
+        }
+
+        .savings-progress {
+            margin-top: 30px;
+            background: #e2e8f0;
+            height: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .savings-progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .savings-result {
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-radius: 20px;
+            border-left: 5px solid #10b981;
+        }
+
+        .savings-result h4 {
+            color: #0f172a;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .savings-result p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .calculator-section {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        #loanResult {
+            margin-top: 30px;
+        }
+
+        .loan-result-card {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-left: 5px solid #ef4444;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .loan-result-card h4 {
+            color: #dc2626;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .loan-result-card p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .quiz-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .quiz {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quiz-progress {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-bar {
+            background: linear-gradient(135deg, #10b981, #059669);
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .quiz-question {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #0f172a;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .quiz-option {
+            padding: 25px;
+            background: #f8fafc;
+            border: 3px solid #e2e8f0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            border-color: #10b981;
+            background: #f0fdf4;
+            transform: translateX(5px);
+        }
+
+        .quiz-result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .correct {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            color: #059669;
+            border: 2px solid #10b981;
+        }
+
+        .incorrect {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            color: #dc2626;
+            border: 2px solid #ef4444;
+        }
+
+        .scam-signs {
+            margin-top: 50px;
+            background: white;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .scam-signs h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #0f172a;
+        }
+
+        .scam-sign-item {
+            padding: 20px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-left: 5px solid #ef4444;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .scam-sign-item:hover {
+            transform: translateX(10px);
+        }
+
+        .scam-sign-item strong {
+            color: #dc2626;
+            font-size: 1.1rem;
+        }
+
+        .smart-buying-section {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .comparison-card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .comparison-card.good {
+            border-top: 5px solid #10b981;
+        }
+
+        .comparison-card.bad {
+            border-top: 5px solid #ef4444;
+        }
+
+        .comparison-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .comparison-card h3 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #0f172a;
+        }
+
+        .comparison-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .comparison-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            line-height: 1.7;
+        }
+
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #10b981;
+            margin-top: 20px;
+            line-height: 1.7;
+        }
+
+        .tip-box.warning {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-left-color: #ef4444;
+        }
+
+        .mistakes-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .mistakes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .mistake-card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-left: 5px solid #ef4444;
+            transition: all 0.4s;
+        }
+
+        .mistake-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .mistake-card h3 {
+            color: #ef4444;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .mistake-card p {
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        footer p {
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .expense-input { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">FinSmart</div>
+            <ul class="nav-links">
+                <li><a href="#tracker">Трекер</a></li>
+                <li><a href="#budget">Бюджет</a></li>
+                <li><a href="#calculator">Кредиты</a></li>
+                <li><a href="#smart-buying">Покупки</a></li>
+                <li><a href="#quiz">Мошенники</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Управляй Финансами <span>Разумно</span></h1>
+            <p>Начни контролировать свои расходы уже сегодня</p>
+            <div class="cta-buttons">
+                <button class="cta-button" onclick="document.getElementById('tracker').scrollIntoView({behavior: 'smooth'})">
+                    Начать Сейчас
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>50%</h3>
+                    <p>Экономят больше</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10К+</h3>
+                    <p>Пользователей</p>
+                </div>
+                <div class="stat-item">
+                    <h3>30 дней</h3>
+                    <p>До результата</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Распространенные Проблемы</h2>
+                <p>С чем сталкиваются люди при управлении финансами</p>
+            </div>
+            <div class="problem-cards">
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3>Неконтролируемые расходы</h3>
+                    <p>Деньги уходят незаметно на мелочи</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📊</div>
+                    <h3>Нет планирования</h3>
+                    <p>Отсутствие бюджета приводит к долгам</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🎯</div>
+                    <h3>Нет целей</h3>
+                    <p>Сложно накопить без конкретной цели</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📉</div>
+                    <h3>Импульсивные покупки</h3>
+                    <p>Эмоциональные траты опустошают кошелек</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tracker" class="tracker-section">
+        <div class="container">
+            <div class="tracker">
+                <h3>Трекер Расходов</h3>
+                <div class="expense-input">
+                    <input type="text" id="expenseName" placeholder="Название расхода">
+                    <input type="number" id="expenseAmount" placeholder="Сумма">
+                    <select id="expenseCategory">
+                        <option value="Еда">Еда</option>
+                        <option value="Транспорт">Транспорт</option>
+                        <option value="Развлечения">Развлечения</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                    <button onclick="addExpense()">Добавить</button>
+                </div>
+                <div id="expenseList" class="expense-list"></div>
+                <div id="total" class="total">Итого: 0 ₼</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="budget" class="budget-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Правило 50/30/20</h2>
+                <p>Как правильно распределять доход для накоплений</p>
+            </div>
+            <div class="budget-rules">
+                <div class="rule-card">
+                    <div class="rule-percentage">50%</div>
+                    <h3>Необходимое</h3>
+                    <p>Жилье, еда, транспорт, коммунальные услуги</p>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-percentage">30%</div>
+                    <h3>Желаемое</h3>
+                    <p>Развлечения, хобби, рестораны, покупки</p>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-percentage">20%</div>
+                    <h3>Накопления</h3>
+                    <p>Сбережения, инвестиции, погашение долгов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="savings" class="savings-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Калькулятор Накоплений</h2>
+                <p>Узнайте, сколько сможете накопить</p>
+            </div>
+            <div class="tracker">
+                <div class="calc-input">
+                    <label>Месячный доход (₼)</label>
+                    <input type="number" id="income" placeholder="Например: 2000" oninput="calculateSavings()">
+                </div>
+                <div class="calc-input">
+                    <label>Цель накоплений (₼)</label>
+                    <input type="number" id="goal" placeholder="Например: 10000" oninput="calculateSavings()">
+                </div>
+                <div id="savingsResult"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Калькулятор Кредита</h2>
+                <p>Поймите реальную стоимость кредита</p>
+            </div>
+            <div class="tracker">
+                <div class="calc-input">
+                    <label>Сумма кредита (₼)</label>
+                    <input type="number" id="loanAmount" placeholder="10000">
+                </div>
+                <div class="calc-input">
+                    <label>Процентная ставка (%)</label>
+                    <input type="number" id="interestRate" placeholder="15" step="0.1">
+                </div>
+                <div class="calc-input">
+                    <label>Срок (месяцев)</label>
+                    <input type="number" id="loanTerm" placeholder="12">
+                </div>
+                <button class="cta-button" onclick="calculateLoan()">Рассчитать</button>
+                <div id="loanResult"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="quiz-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Как Распознать Мошенников</h2>
+                <p>Проверьте свои знания безопасности</p>
+            </div>
+            <div class="quiz">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-bar" id="quizProgress" style="width: 0%"></div>
+                </div>
+                <div id="quizContainer"></div>
+            </div>
+            <div class="scam-signs">
+                <h3>🚨 Признаки Мошенничества</h3>
+                <div class="scam-sign-item">
+                    <strong>Слишком хорошо, чтобы быть правдой:</strong> Обещания быстрого обогащения, гарантированный доход без рисков
+                </div>
+                <div class="scam-sign-item">
+                    <strong>Давление и срочность:</strong> "Только сегодня!", "Последний шанс!", требование немедленного решения
+                </div>
+                <div class="scam-sign-item">
+                    <strong>Требование предоплаты:</strong> Просят заплатить заранее за несуществующую услугу или товар
+                </div>
+                <div class="scam-sign-item">
+                    <strong>Подозрительные контакты:</strong> Общение только через мессенджеры, нет официального сайта
+                </div>
+                <div class="scam-sign-item">
+                    <strong>Запрос личных данных:</strong> Просят PIN-код карты, CVV, пароли или SMS-коды
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="smart-buying" class="smart-buying-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Умные Покупки: Полезное vs Бесполезное</h2>
+                <p>Научитесь различать нужные и импульсивные траты</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card good">
+                    <div class="comparison-icon">✅</div>
+                    <h3>Полезные Покупки</h3>
+                    <ul class="comparison-list">
+                        <li><strong>Качественная обувь</strong> - прослужит годами</li>
+                        <li><strong>Образование</strong> - инвестиция в себя</li>
+                        <li><strong>Здоровое питание</strong> - экономия на лечении</li>
+                        <li><strong>Инструменты для работы</strong> - увеличат доход</li>
+                        <li><strong>Базовая электроника</strong> - необходимость</li>
+                    </ul>
+                    <div class="tip-box">
+                        <strong>Правило 30 дней:</strong> Если хотите что-то купить, подождите 30 дней. Если желание не прошло - покупайте!
+                    </div>
+                </div>
+                <div class="comparison-card bad">
+                    <div class="comparison-icon">❌</div>
+                    <h3>Импульсивные Траты</h3>
+                    <ul class="comparison-list">
+                        <li><strong>Брендовая одежда</strong> - переплата за логотип</li>
+                        <li><strong>Новейшие гаджеты</strong> - устаревают за месяц</li>
+                        <li><strong>Еда на вынос</strong> - в 3 раза дороже готовки</li>
+                        <li><strong>Подписки</strong> - которыми не пользуетесь</li>
+                        <li><strong>Распродажи</strong> - покупка ненужного со скидкой</li>
+                    </ul>
+                    <div class="tip-box warning">
+                        <strong>Вопросы перед покупкой:</strong> Мне это действительно нужно? Могу ли я без этого обойтись? Есть ли альтернатива дешевле?
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mistakes-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Распространенные Финансовые Ошибки</h2>
+                <p>Избегайте этих ошибок для финансового успеха</p>
+            </div>
+            <div class="mistakes">
+                <div class="mistake-card">
+                    <h3>❌ Отсутствие подушки безопасности</h3>
+                    <p>Нужно иметь накопления на 3-6 месяцев жизни на случай непредвиденных ситуаций: потери работы, болезни или срочного ремонта.</p>
+                </div>
+                <div class="mistake-card">
+                    <h3>❌ Жизнь в кредит</h3>
+                    <p>Покупка всего в кредит приводит к долговой яме. Переплата может достигать 50-100% от стоимости товара.</p>
+                </div>
+                <div class="mistake-card">
+                    <h3>❌ Игнорирование мелких расходов</h3>
+                    <p>Ежедневный кофе за 5₼ = 1825₼ в год. Мелкие траты незаметно съедают бюджет.</p>
+                </div>
+                <div class="mistake-card">
+                    <h3>❌ Не учет инфляции</h3>
+                    <p>Деньги под матрасом теряют 5-10% стоимости ежегодно. Нужно хотя бы держать их в банке под проценты.</p>
+                </div>
+                <div class="mistake-card">
+                    <h3>❌ Импульсивные инвестиции</h3>
+                    <p>Вложение в "быстрые деньги" без изучения обычно заканчивается потерей средств. Изучайте перед инвестированием!</p>
+                </div>
+                <div class="mistake-card">
+                    <h3>❌ Отсутствие финансовых целей</h3>
+                    <p>Без конкретных целей сложно мотивировать себя экономить и копить. Поставьте цель: квартира, машина, образование.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 FinSmart. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        let expenses = [];
+        let currentQuestion = 0;
+
+        const quizData = [
+            {
+                question: "Вам звонят из 'банка' и просят назвать код из SMS для 'проверки безопасности'. Что делать?",
+                options: [
+                    "Назвать код, ведь это банк",
+                    "Повесить трубку и позвонить в банк сам",
+                    "Спросить имя сотрудника",
+                    "Попросить перезвонить позже"
+                ],
+                correct: 1,
+                explanation: "Банки НИКОГДА не просят SMS-коды. Это мошенники! Повесьте трубку и сами позвоните в банк по номеру с карты."
+            },
+            {
+                question: "В соцсетях предлагают инвестировать 100₼ и через месяц получить 500₼. Что это?",
+                options: [
+                    "Отличная возможность заработать",
+                    "Финансовая пирамида - мошенничество",
+                    "Законная инвестиция",
+                    "Нужно проверить отзывы"
+                ],
+                correct: 1,
+                explanation: "Это классическая финансовая пирамида. Никто не даст вам 400% прибыли за месяц легально."
+            },
+            {
+                question: "Вы выиграли приз! Для получения нужно оплатить доставку 50₼. Ваши действия?",
+                options: [
+                    "Оплатить, ведь приз дороже",
+                    "Игнорировать - это мошенничество",
+                    "Попросить прислать приз наложенным платежом",
+                    "Узнать подробности у организаторов"
+                ],
+                correct: 1,
+                explanation: "Настоящие призы не требуют предоплаты. Это популярная схема мошенничества."
+            }
+        ];
+
+        function addExpense() {
+            const name = document.getElementById('expenseName').value;
+            const amount = parseFloat(document.getElementById('expenseAmount').value);
+            const category = document.getElementById('expenseCategory').value;
+
+            if (!name || !amount || amount <= 0) {
+                alert('Пожалуйста, заполните все поля корректно');
+                return;
+            }
+
+            expenses.push({ name, amount, category });
+            document.getElementById('expenseName').value = '';
+            document.getElementById('expenseAmount').value = '';
+            
+            renderExpenses();
+        }
+
+        function deleteExpense(index) {
+            expenses.splice(index, 1);
+            renderExpenses();
+        }
+
+        function renderExpenses() {
+            const list = document.getElementById('expenseList');
+            const total = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+
+            list.innerHTML = expenses.map((exp, i) => `
+                <div class="expense-item">
+                    <div class="expense-item-info">
+                        <div class="expense-item-category">${exp.category}</div>
+                        <div class="expense-item-name">${exp.name}</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div class="expense-item-amount">${exp.amount} ₼</div>
+                        <button class="expense-item-delete" onclick="deleteExpense(${i})">Удалить</button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('total').textContent = `Итого: ${total.toFixed(2)} ₼`;
+        }
+
+        function calculateSavings() {
+            const income = parseFloat(document.getElementById('income').value) || 0;
+            const goal = parseFloat(document.getElementById('goal').value) || 0;
+
+            if (income <= 0 || goal <= 0) {
+                document.getElementById('savingsResult').innerHTML = '';
+                return;
+            }
+
+            const savingsAmount = income * 0.2; // 20% от дохода
+            const monthsNeeded = Math.ceil(goal / savingsAmount);
+            const percentage = Math.min((savingsAmount / goal * 100), 100);
+
+            document.getElementById('savingsResult').innerHTML = `
+                <div class="savings-result">
+                    <h4>Ваш План Накоплений</h4>
+                    <p><strong>Откладывайте ежемесячно:</strong> ${savingsAmount.toFixed(2)} ₼ (20% от дохода)</p>
+                    <p><strong>Время до цели:</strong> ${monthsNeeded} месяцев</p>
+                    <p><strong>Необходимые расходы (50%):</strong> ${(income * 0.5).toFixed(2)} ₼</p>
+                    <p><strong>Желаемые расходы (30%):</strong> ${(income * 0.3).toFixed(2)} ₼</p>
+                    <div class="savings-progress">
+                        <div class="savings-progress-bar" style="width: ${percentage}%">
+                            ${percentage.toFixed(1)}%
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function calculateLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const rate = parseFloat(document.getElementById('interestRate').value) / 100 / 12;
+            const term = parseFloat(document.getElementById('loanTerm').value);
+
+            if (!amount || !rate || !term) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+
+            const monthlyPayment = (amount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1);
+            const totalPayment = monthlyPayment * term;
+            const totalInterest = totalPayment - amount;
+            const overpaymentPercent = (totalInterest / amount * 100).toFixed(1);
+
+            document.getElementById('loanResult').innerHTML = `
+                <div class="loan-result-card">
+                    <h4>⚠️ Результаты расчета кредита</h4>
+                    <p><strong>Ежемесячный платеж:</strong> ${monthlyPayment.toFixed(2)} ₼</p>
+                    <p><strong>Общая сумма выплат:</strong> ${totalPayment.toFixed(2)} ₼</p>
+                    <p><strong>Переплата:</strong> ${totalInterest.toFixed(2)} ₼ (${overpaymentPercent}%)</p>
+                    <p style="margin-top: 15px; color: #dc2626;"><strong>Вы заплатите на ${overpaymentPercent}% больше!</strong></p>
+                </div>
+                <div class="savings-result">
+                    <h4>💡 Совет</h4>
+                    <p>Вместо кредита попробуйте:</p>
+                    <p>• Накопить за ${Math.ceil(amount / (monthlyPayment * 0.7))} месяцев</p>
+                    <p>• Купить более дешевый вариант</p>
+                    <p>• Использовать рассрочку без процентов</p>
+                </div>
+            `;
+        }
+
+        function startQuiz() {
+            currentQuestion = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const quiz = quizData[currentQuestion];
+            const progress = ((currentQuestion + 1) / quizData.length * 100);
+            
+            document.getElementById('quizProgress').style.width = progress + '%';
+            document.getElementById('quizContainer').innerHTML = `
+                <div class="quiz-question">${currentQuestion + 1}. ${quiz.question}</div>
+                <div class="quiz-options">
+                    ${quiz.options.map((option, index) => `
+                        <div class="quiz-option" onclick="checkAnswer(${index})">
+                            ${option}
+                        </div>
+                    `).join('')}
+                </div>
+                <div id="quizFeedback"></div>
+            `;
+        }
+
+        function checkAnswer(selected) {
+            const quiz = quizData[currentQuestion];
+            const feedback = document.getElementById('quizFeedback');
+            
+            if (selected === quiz.correct) {
+                feedback.innerHTML = `
+                    <div class="quiz-result correct">
+                        ✅ Правильно! ${quiz.explanation}
+                    </div>
+                `;
+            } else {
+                feedback.innerHTML = `
+                    <div class="quiz-result incorrect">
+                        ❌ Неверно. ${quiz.explanation}
+                    </div>
+                `;
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < quizData.length) {
+                    showQuestion();
+                } else {
+                    document.getElementById('quizContainer').innerHTML = `
+                        <div class="quiz-result correct">
+                            <h3>🎉 Квиз завершен!</h3>
+                            <p style="margin-top: 15px;">Теперь вы знаете основные признаки мошенничества!</p>
+                            <button class="cta-button" onclick="startQuiz()" style="margin-top: 20px;">
+                                Пройти еще раз
+                            </button>
+                        </div>
+                    `;
+                    document.getElementById('quizProgress').style.width = '100%';
+                }
+            }, 3000);
+        }
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0.7rem 0';
+            } else {
+                header.style.padding = '1rem 0';
+            }
+        });
+
+        // Запуск квиза при загрузке
+        window.addEventListener('load', () => {
+            startQuiz();
+        });
+    </script>
+</body>
+</html>
